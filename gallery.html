@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galeria · Hotel Adriatik</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Jost',sans-serif;background:#fff;color:#0a2540;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+:root{--navy:#0a2540;--mid:#1a4a7a;--blue:#2e7db5;--pale:#a8d5f0;--aqua:#4fc3e8;--sand:#f5efe6;--sand2:#e8ddd0;--gold:#c9a84c;--grey:#6b8fa8;--white:#fff}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(10,37,64,.97);box-shadow:0 2px 18px rgba(0,0,0,.2)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:#fff}
+.nav-logo em{font-style:italic;color:var(--aqua)}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.72);transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--aqua);transition:width .3s}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{background:var(--aqua);color:var(--navy);font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:.55rem 1.3rem;border-radius:100px;transition:all .3s}
+.nav-cta:hover{background:#fff}
+.ham{display:none;flex-direction:column;gap:5px;padding:.3rem;z-index:600}
+.ham span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob{position:fixed;inset:0;z-index:490;background:rgba(10,37,64,.98);backdrop-filter:blur(16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;visibility:hidden;opacity:0;transition:opacity .3s,visibility .3s;pointer-events:none}
+.mob.open{visibility:visible;opacity:1;pointer-events:all}
+.mob a{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:rgba(255,255,255,.85);transition:color .25s}
+.mob a:hover{color:var(--aqua)}
+.mob-cta{background:var(--aqua);color:var(--navy);font-size:.78rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;padding:.85rem 2.4rem;border-radius:100px;margin-top:.6rem;cursor:pointer;border:none;font-family:'Jost',sans-serif}
+.mob-tel{font-size:.78rem;color:rgba(255,255,255,.36);margin-top:.2rem}
+/* PAGE HEADER */
+.page-header{padding:8rem 3rem 4rem;background:linear-gradient(135deg,var(--navy) 0%,var(--mid) 100%);color:#fff;position:relative;overflow:hidden}
+.page-header::after{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80') center/cover no-repeat;opacity:.15;z-index:0}
+.page-header-body{position:relative;z-index:1}
+.ph-tag{display:block;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--aqua);margin-bottom:.7rem}
+.ph-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:300;line-height:1.1;margin-bottom:.9rem}
+.ph-h1 em{font-style:italic;color:var(--pale)}
+.ph-p{font-size:clamp(.8rem,2vw,.93rem);font-weight:300;color:rgba(255,255,255,.62);line-height:1.72;max-width:500px}
+/* BACK BUTTON */
+.back-btn{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;padding:.5rem 1.2rem;border-radius:100px;transition:all .3s;margin-bottom:1.5rem;cursor:pointer;font-family:'Jost',sans-serif}
+.back-btn:hover{background:rgba(255,255,255,.18);color:#fff}
+/* CONTENT */
+.content{max-width:1200px;margin:0 auto;padding:4rem 3rem}
+/* SECTIONS */
+.sec{padding:5rem 3rem}
+.sec-tag{display:block;font-size:.63rem;letter-spacing:.26em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem}
+.sec-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,3.1rem);font-weight:300;color:var(--navy);line-height:1.1;margin-bottom:.8rem}
+.sec-p{font-size:.87rem;color:var(--grey);font-weight:300;line-height:1.76;max-width:560px;margin-bottom:2.3rem}
+/* BTN */
+.btn-pri{background:var(--aqua);color:var(--navy);font-size:.73rem;font-weight:500;letter-spacing:.11em;text-transform:uppercase;padding:.82rem 2rem;border-radius:100px;transition:all .3s;display:inline-block;cursor:pointer;border:none;font-family:'Jost',sans-serif}
+.btn-pri:hover{background:#fff;transform:translateY(-2px);box-shadow:0 8px 22px rgba(79,195,232,.4)}
+.btn-nav{background:var(--navy);color:#fff;font-size:.73rem;font-weight:500;letter-spacing:.11em;text-transform:uppercase;padding:.82rem 2rem;border-radius:100px;transition:all .3s;display:inline-block;cursor:pointer;border:none;font-family:'Jost',sans-serif}
+.btn-nav:hover{background:var(--blue);transform:translateY(-2px)}
+/* FOOTER */
+footer{background:#060f1c;padding:2.8rem 3rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;font-size:.8rem;color:rgba(255,255,255,.5)}
+.fbrand h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:#fff;margin-bottom:.55rem}
+.fbrand h2 em{font-style:italic;color:var(--aqua)}
+.fbrand p{line-height:1.7;margin-bottom:1rem}
+.socials{display:flex;gap:.55rem}
+.soc{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.44);font-size:.76rem;transition:all .3s}
+.soc:hover{border-color:var(--aqua);color:var(--aqua)}
+.fcol h4{font-size:.6rem;letter-spacing:.17em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:.82rem}
+.fcol ul{list-style:none}
+.fcol li{margin-bottom:.44rem}
+.fcol a{color:rgba(255,255,255,.5);font-size:.8rem;transition:color .3s}
+.fcol a:hover{color:#fff}
+.fbot{background:#030a12;padding:.9rem 3rem;display:flex;align-items:center;justify-content:space-between;font-size:.65rem;color:rgba(255,255,255,.22)}
+/* OVERLAY / LIGHTBOX */
+.overlay{position:fixed;inset:0;background:rgba(6,15,28,.82);z-index:3000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);padding:1rem}
+.overlay.open{display:flex}
+.modal{background:#fff;border-radius:20px;padding:2.2rem 1.8rem;width:100%;max-width:460px;position:relative;animation:mi .32s ease;max-height:92svh;overflow-y:auto}
+@keyframes mi{from{opacity:0;transform:scale(.9) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.mclose{position:absolute;top:.9rem;right:.9rem;background:var(--sand);width:32px;height:32px;border-radius:50%;font-size:.85rem;transition:background .3s;display:flex;align-items:center;justify-content:center}
+.mclose:hover{background:var(--sand2)}
+.modal h3{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:400;color:var(--navy);margin-bottom:.2rem}
+.msub{font-size:.77rem;color:var(--grey);margin-bottom:1.5rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.fg{display:flex;flex-direction:column;gap:.28rem;margin-bottom:.75rem}
+.fg label{font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--grey)}
+.fg input,.fg select{border:1.5px solid var(--sand2);border-radius:8px;padding:.65rem .82rem;font-family:'Jost',sans-serif;font-size:.83rem;color:var(--navy);outline:none;transition:border-color .3s;background:#fff}
+.fg input:focus,.fg select:focus{border-color:var(--aqua)}
+.msubmit{width:100%;background:var(--navy);color:#fff;padding:.88rem;border-radius:10px;font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;transition:all .3s;margin-top:.32rem;cursor:pointer;font-family:'Jost',sans-serif;border:none}
+.msubmit:hover{background:var(--blue);transform:translateY(-2px)}
+.lbox{position:fixed;inset:0;background:rgba(6,15,28,.95);z-index:4000;display:none;align-items:center;justify-content:center}
+.lbox.open{display:flex}
+.lbox img{max-width:90vw;max-height:86vh;border-radius:8px;object-fit:contain}
+.lbox-x{position:absolute;top:1rem;right:1rem;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.11);color:#fff;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:background .3s;cursor:pointer;border:none}
+.lbox-x:hover{background:rgba(255,255,255,.2)}
+/* RESPONSIVE */
+@media(max-width:1024px){nav{padding:.95rem 2rem}.sec{padding:4rem 2rem}.content{padding:3rem 2rem}footer{grid-template-columns:1fr 1fr;gap:1.6rem}.fbot{padding:.8rem 2rem}.page-header{padding:7rem 2rem 3.2rem}}
+@media(max-width:768px){nav{padding:.8rem 1.1rem}.nav-links,.nav-cta{display:none}.ham{display:flex}.sec{padding:3rem 1.2rem}.content{padding:2.4rem 1.2rem}.page-header{padding:6rem 1.2rem 2.5rem}footer{grid-template-columns:1fr;padding:2rem 1.2rem;gap:1.6rem}.fbot{flex-direction:column;gap:.3rem;text-align:center;padding:.8rem 1.2rem;font-size:.6rem}.modal{border-radius:18px 18px 0 0;position:fixed;bottom:0;left:0;right:0;width:100%;max-width:100%;margin:0;max-height:90svh}.overlay{align-items:flex-end}.frow{grid-template-columns:1fr}}
+
+.filter-tabs{display:flex;gap:.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.ftab{background:var(--sand);border:none;color:var(--grey);font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:.48rem 1.05rem;border-radius:100px;cursor:pointer;transition:all .3s}
+.ftab.active,.ftab:hover{background:var(--navy);color:#fff}
+.gal-masonry{columns:3;gap:1rem;margin-top:.5rem}
+.gal-masonry .gal-item{break-inside:avoid;margin-bottom:1rem;border-radius:14px;overflow:hidden;cursor:pointer;position:relative;display:block}
+.gal-masonry .gal-item img{width:100%;display:block;transition:transform .5s}
+.gal-masonry .gal-item:hover img{transform:scale(1.04)}
+.gal-item-ov{position:absolute;inset:0;background:rgba(10,37,64,0);display:flex;align-items:center;justify-content:center;transition:background .3s}
+.gal-masonry .gal-item:hover .gal-item-ov{background:rgba(10,37,64,.35)}
+.gal-item-ov span{opacity:0;color:#fff;font-size:1.5rem;transition:opacity .3s}
+.gal-masonry .gal-item:hover .gal-item-ov span{opacity:1}
+.gal-item-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(10,37,64,.75),transparent);padding:.8rem;color:#fff;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;transform:translateY(100%);transition:transform .3s}
+.gal-masonry .gal-item:hover .gal-item-caption{transform:translateY(0)}
+.lbox{position:fixed;inset:0;background:rgba(6,15,28,.96);z-index:4000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem}
+.lbox.open{display:flex}
+.lbox img{max-width:90vw;max-height:80vh;border-radius:8px;object-fit:contain}
+.lbox-cap{color:rgba(255,255,255,.55);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
+.lbox-x{position:absolute;top:1rem;right:1rem;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.11);color:#fff;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:background .3s;cursor:pointer;border:none}
+.lbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.11);color:#fff;font-size:1.2rem;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;transition:background .3s}
+.lbox-nav:hover,.lbox-x:hover{background:rgba(255,255,255,.22)}
+.lbox-prev{left:1rem}
+.lbox-next{right:4rem}
+@media(max-width:768px){
+  .gal-masonry{columns:2;gap:.6rem}
+  .gal-masonry .gal-item{margin-bottom:.6rem}
+  .lbox-nav{display:none}
+}
+@media(max-width:420px){.gal-masonry{columns:1}}
+</style>
+</head>
+<body>
+<div class="lbox" id="lbox">
+  <button class="lbox-x" onclick="closeLbox()">✕</button>
+  <button class="lbox-nav lbox-prev" onclick="navLbox(-1)">‹</button>
+  <img id="lbox-img" src="" alt="">
+  <div class="lbox-cap" id="lbox-cap"></div>
+  <button class="lbox-nav lbox-next" onclick="navLbox(1)">›</button>
+</div>
+<nav>
+  <a class="nav-logo" href="index.html">Hotel <em>Adriatik</em></a>
+  <ul class="nav-links">
+    <li><a href="rooms.html">Dhomat</a></li>
+    <li><a href="restaurant.html">Restoranti & Spa</a></li>
+    <li><a href="gallery.html" class="active">Galeria</a></li>
+    <li><a href="activities.html">Aktivitete</a></li>
+  </ul>
+  <a class="nav-cta" href="rezervo.html">Rezervo</a>
+  <button class="ham" id="ham" onclick="toggleMob()"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob" id="mob">
+  <a href="index.html" onclick="closeMob()">Kryefaqja</a>
+  <a href="rooms.html" onclick="closeMob()">Dhomat</a>
+  <a href="restaurant.html" onclick="closeMob()">Restoranti & Spa</a>
+  <a href="activities.html" onclick="closeMob()">Aktivitete</a>
+  <button class="mob-cta" onclick="closeMob();window.location='rezervo.html'">Rezervo Tani</button>
+  <span class="mob-tel">📞 +355 12 345 678</span>
+</div>
+<div class="page-header">
+  <div class="page-header-body">
+    <a class="back-btn" href="index.html">← Kthehu në Kryefaqe</a>
+    <span class="ph-tag">✦ Momentet Tona</span>
+    <h1 class="ph-h1">Galeria <em>e Fotove</em></h1>
+    <p class="ph-p">Zbuloni bukurinë e Hotel Adriatik përmes imazheve të rezortit, dhomave, restorantit, spa dhe bregdetit tonë të mrekullueshëm.</p>
+  </div>
+</div>
+<div class="content">
+  <div class="filter-tabs">
+    <button class="ftab active" onclick="filterGal('all',this)">Të gjitha</button>
+    <button class="ftab" onclick="filterGal('plazh',this)">🏖 Plazhi</button>
+    <button class="ftab" onclick="filterGal('dhoma',this)">🛏 Dhomat</button>
+    <button class="ftab" onclick="filterGal('restorant',this)">🍽 Restoranti</button>
+    <button class="ftab" onclick="filterGal('spa',this)">🧖 Spa</button>
+  </div>
+  <div class="gal-masonry" id="gallery">
+    <div class="gal-item" data-cat="plazh" onclick="openLbox(0)"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" alt="Plazhi" loading="lazy"><div class="gal-item-ov"><span>🔍</span></div><div class="gal-item-caption">Plazhi Adriatik</div></div>
+    <div class="gal-item" data-cat="dhoma" onclick="openLbox(1)"><img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80" alt="Dhomë" loading="lazy"><div class="gal-item-ov"><span>🔍</span></div><div class="gal-item-caption">Suite Deluxe</div></div>
+    <div class="gal-item" data-cat="restorant" onclick="openLbox(2)"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Restorant" loading="lazy"><div class="gal-item-ov"><span>🔍</span></div><div class="gal-item-caption">Restoranti Blu Mare</div></div>
+    <div class="gal-item" data-cat="spa" onclick="openLbox(3)"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80" alt="Spa" loading="lazy"><div class="gal-item-ov"><span>🔍</span></div><div class="gal-item-caption">Masazh & Relaksim</div></div>
+    <div class="gal-item" data-cat="plazh" onclick="openLbox(4)"><img src="https://images.unsplash.com/photo-1455587734955-081b22074882?w=800&q=80" alt="Pishinë" loading="lazy"><div class="gal-item-ov"><span>🔍</span></div><div class="gal-item-caption">Pishinë Infinity</div></div>
+    <div class="gal-item" data-cat="dhoma" onclick="openLbox(5)"><img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=80" alt="Suite" loading="lazy"><div class="gal-item-ov"><span>🔍</span></div><div class="gal-item-caption">Suite Bregdetare</div></div>
+    <div class="gal-item" data-cat="spa" onclick="openLbox(6)"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80" alt="Pool" loading="lazy"><div class="gal-item-ov"><span>🔍</span></div><div class="gal-item-caption">Pishinë & Wellness</div></div>
+    <div class="gal-item" data-cat="dhoma" onclick="openLbox(7)"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80" alt="Suite Premium" loading="lazy"><div class="gal-item-ov"><span>🔍</span></div><div class="gal-item-caption">Suite Presidenciale</div></div>
+    <div class="gal-item" data-cat="restorant" onclick="openLbox(8)"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80" alt="Trajtim" loading="lazy"><div class="gal-item-ov"><span>🔍</span></div><div class="gal-item-caption">Trajtim Fytyre</div></div>
+    <div class="gal-item" data-cat="plazh" onclick="openLbox(9)"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="Hotel" loading="lazy"><div class="gal-item-ov"><span>🔍</span></div><div class="gal-item-caption">Hotel Adriatik</div></div>
+    <div class="gal-item" data-cat="restorant" onclick="openLbox(10)"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80" alt="Darkë" loading="lazy"><div class="gal-item-ov"><span>🔍</span></div><div class="gal-item-caption">Darkë Romantike</div></div>
+    <div class="gal-item" data-cat="spa" onclick="openLbox(11)"><img src="https://images.unsplash.com/photo-1583241475880-083f84372725?w=800&q=80" alt="Hamam" loading="lazy"><div class="gal-item-ov"><span>🔍</span></div><div class="gal-item-caption">Hamam & Sauna</div></div>
+  </div>
+</div>
+<footer>
+  <div class="fbrand"><h2>Hotel <em>Adriatik</em></h2><p>Resort & Spa 5 yje · Riviera Shqiptare</p><div class="socials"><a class="soc" href="#">f</a><a class="soc" href="#">in</a><a class="soc" href="#">✦</a></div></div>
+  <div class="fcol"><h4>Faqet</h4><ul><li><a href="index.html">Kryefaqja</a></li><li><a href="rooms.html">Dhomat</a></li><li><a href="restaurant.html">Restoranti</a></li><li><a href="activities.html">Aktivitete</a></li></ul></div>
+  <div class="fcol"><h4>Kontakt</h4><ul><li><a href="tel:+355123456">📞 +355 12 345 678</a></li><li><a href="mailto:info@adriatik.al">✉ info@adriatik.al</a></li></ul></div>
+  <div class="fcol"><h4>Rezervo</h4><ul><li><a href="rezervo.html">Rezervo Tani</a></li><li><a href="#">FAQ</a></li></ul></div>
+</footer>
+<div class="fbot"><span>© 2025 Hotel Adriatik Resort & Spa</span><span>Projektuar me ❤️</span></div>
+<script>
+function toggleMob(){var h=document.getElementById("ham"),m=document.getElementById("mob");if(h.classList.contains("open")){closeMob()}else{h.classList.add("open");m.classList.add("open");document.body.style.overflow="hidden"}}
+function closeMob(){document.getElementById("ham").classList.remove("open");document.getElementById("mob").classList.remove("open");document.body.style.overflow=""}
+var imgs=[];var captions=[];var cur=0;
+(function(){
+  var items=document.querySelectorAll('.gal-item');
+  items.forEach(function(it){imgs.push(it.querySelector('img').src.replace('w=800','w=1400'));captions.push(it.querySelector('.gal-item-caption').textContent)});
+})();
+function openLbox(i){cur=i;document.getElementById('lbox-img').src=imgs[i];document.getElementById('lbox-cap').textContent=captions[i];document.getElementById('lbox').classList.add('open');document.body.style.overflow='hidden'}
+function closeLbox(){document.getElementById('lbox').classList.remove('open');document.body.style.overflow=''}
+function navLbox(d){cur=(cur+d+imgs.length)%imgs.length;document.getElementById('lbox-img').src=imgs[cur];document.getElementById('lbox-cap').textContent=captions[cur]}
+function filterGal(cat,btn){
+  document.querySelectorAll('.ftab').forEach(function(x){x.classList.remove('active')});
+  btn.classList.add('active');
+  document.querySelectorAll('.gal-item').forEach(function(it){
+    if(cat==='all'||it.dataset.cat===cat){it.style.display='block'}else{it.style.display='none'}
+  });
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){closeLbox();closeMob()}
+  if(document.getElementById('lbox').classList.contains('open')){
+    if(e.key==='ArrowRight')navLbox(1);
+    if(e.key==='ArrowLeft')navLbox(-1);
+  }
+});
+</script>
+</body>
+</html>
